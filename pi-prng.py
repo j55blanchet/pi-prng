@@ -12,6 +12,7 @@ import hashlib
 
 
 
+# Method to 
 def __calculate_pi(digit):
 	pass
 
