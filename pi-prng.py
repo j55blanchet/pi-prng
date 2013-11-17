@@ -9,38 +9,87 @@
 
 import time
 import hashlib
+from pistream import *
 
-
-
-# Method to 
-def __calculate_pi(digit):
-	pass
-
+# 
 """Generate psuedo-random numbers using the digits of π as a 
 source of numbers, and interpreting a given seed as criteria 
 for selecting output numbers from this sequence
 """
+
+
+PRNG_ADVANCE_MAGIC = "magicmagic"
+PI_PRNG_ADVANCE_MODULO = 16
+
 class PiPrng:
 	"""Create a PiPrrg seeded with the start_pi'th digit of pi"""
-	def __init__(self, start_pi=None):
+	def __init__(self, seed=None):
+		self.md5 = hashlib.md5()
+		self.pi = PiStream()
 
 		# we use hash function to generate seed from time when none specified
-		if start_pi is None:
-			m_md5 = hashlib.md5()
-			time_str = str(time.time())
-			time_bytes = time_str.encode()
-			m_md5.update(time_bytes)
-			self.pi_index = int.from_bytes(m_md5.digest(), 'big')
+		if seed is None:
+			time.clock() #for windows, in which this function returns value since previous call
+			self.seed(time.clock())
 		else:
-			self.pi_index = startPi
+			self.md5.update(str(seed))
 
-	def advance():
-		pass
+	def seed(self, value):
+		self.md5 = hashlib.md5()
+		self.md5.update(str(value).encode())
+
+	def getRandom(self, num_bytes=1):
+		for i in range(num_bytes):
+			self.md5.update(PRNG_ADVANCE_MAGIC.encode())
+
+			# Use digest as method for determining skip distance
+			offset = 1
+			for byte in self.md5.digest():
+				offset += byte
+			offset %= PI_PRNG_ADVANCE_MODULO # Don't skip too much!
+
+			self.pi.getBytes(offset) #read that many bytes, throw away
+			return self.pi.getBytes(1)
+
+	def __enter__(self):
+		self.pi.__enter__()
+	def __exit__(self, type, value, traceback):
+		self.pi.__exit__(type, value, traceback)
 
 
+
+# # Basic Test Program
+# if __name__ == "__main__":
+# 	import sys
+# 	prng = PiPrng()
+# 	with prng:
+
+# 		seed = "Hello World!"
+# 		if len(sys.argv) > 1:
+# 			seed = sys.argv[1]
+# 		prng.seed(seed)
+
+# 		for i in range(10):
+# 			print(prng.getRandom())
+
+
+# Generating a long randomy output
 if __name__ == "__main__":
-	prng = PiPrng()
-	print(prng.pi_index)
+	import sys
 
+	ofilename = "output.bin"
+	if len(sys.argv) > 1:
+		ofilename = sys.argv[1]
 
-del __calculate_pi
+	with open(ofilename, "wb") as ofile:
+		prng = PiPrng()
+		with prng:
+			i = 0
+			totalbytes = 25000000# 25m bytes
+			while(i < totalbytes): 
+				if (i % 10000 == 0):
+					percent = i / totalbytes
+					print("{:>7.2%} {:>10,} / {:<10,}".format(percent, i, totalbytes))
+
+				ofile.write(prng.getRandom(1))
+				i += 1
