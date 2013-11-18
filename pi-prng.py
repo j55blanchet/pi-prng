@@ -34,6 +34,10 @@ class PiPrng:
 		else:
 			self.md5.update(str(seed))
 
+		# note: we also want to go to a random position within the file!
+		
+
+
 	def seed(self, value):
 		self.md5 = hashlib.md5()
 		self.md5.update(str(value).encode())
@@ -47,6 +51,7 @@ class PiPrng:
 			for byte in self.md5.digest():
 				offset += byte
 			offset %= PI_PRNG_ADVANCE_MODULO # Don't skip too much!
+			offset = max(offset, 1) #make offset at least 1 (otherwise we have a loop!!) !
 
 			self.pi.getBytes(offset) #read that many bytes, throw away
 			return self.pi.getBytes(1)

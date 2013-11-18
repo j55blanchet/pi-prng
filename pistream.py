@@ -17,12 +17,14 @@ class PiStream:
 
 	def __enter__(self):
 		self.mfile = open(self.filename, "rb")
-
 	def __exit__(self, type, value, traceback):
 		try:
 			self.mfile.close()
 		except Exception as ex:
 			print(ex)
+			
+	def randomize_position(self):
+		pass
 
 	def getBytes(self, num_bytes=1):
 		if self.mfile is not None:
@@ -32,8 +34,8 @@ class PiStream:
 			while(len(bytes) < num_bytes):
 				self.seek(0)
 				bytes = bytes + self.mfile.read(num_bytes - len(bytes))
-
 			return bytes
+
 		else:
 			raise Exception("PiStream must be used in a with bock")
 
