@@ -78,14 +78,17 @@ if __name__ == "__main__":
 	import sys
 
 	ofilename = "output.bin"
+	totalbytes = 25000000    # 25m bytes
+
 	if len(sys.argv) > 1:
 		ofilename = sys.argv[1]
+	if len(sys.argv) > 2:
+		totalbytes = int(sys.argv[2])
 
 	with open(ofilename, "wb") as ofile:
 		prng = PiPrng()
 		with prng:
 			i = 0
-			totalbytes = 25000000# 25m bytes
 			while(i < totalbytes): 
 				if (i % 10000 == 0):
 					percent = i / totalbytes
