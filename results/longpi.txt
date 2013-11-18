@@ -237,6 +237,9 @@ $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
           r =5        21741     21743.9        .000        .122
           r =6        77304     77311.8        .001        .122
                         p=1-exp(-SUM/2)= .05936
+
+== GOT TO HERE
+
         Rank of a 6x8 binary matrix,
      rows formed from eight bits of the RNG output.bin     
      b-rank test for bits  2 to  9
