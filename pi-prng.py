@@ -35,7 +35,7 @@ class PiPrng:
 			self.md5.update(str(seed))
 
 		# note: we also want to go to a random position within the file!
-		
+		# 		this will happen in __enter__()
 
 
 	def seed(self, value):
@@ -101,3 +101,4 @@ if __name__ == "__main__":
 
 				ofile.write(prng.getRandom(1))
 				i += 1
+			print(str(prng.pi.loopcount) + " Loops") 

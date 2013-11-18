@@ -6,10 +6,12 @@ Reads a random file in a loop to represent ongoing data
 """
 
 class PiStream:
-	def __init__(self, filename="pi.bin"):
+	def __init__(self, filename="shortpi.bin"):
 		self.mfile = None
 		self.filename = filename
-		pos = 0
+		self.pos = 0
+		self.loopcount = 0
+
 
 	def seek(self, offset):
 		if self.mfile is not None:
@@ -17,13 +19,14 @@ class PiStream:
 
 	def __enter__(self):
 		self.mfile = open(self.filename, "rb")
+
 	def __exit__(self, type, value, traceback):
 		try:
 			self.mfile.close()
 		except Exception as ex:
 			print(ex)
-			
-	def randomize_position(self):
+
+	def set_position(self, percent):
 		pass
 
 	def getBytes(self, num_bytes=1):
@@ -33,6 +36,7 @@ class PiStream:
 			# At end of file? Go back to beginning!
 			while(len(bytes) < num_bytes):
 				self.seek(0)
+				self.loopcount += 1
 				bytes = bytes + self.mfile.read(num_bytes - len(bytes))
 			return bytes
 

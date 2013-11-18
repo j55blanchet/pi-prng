@@ -1,0 +1,943 @@
+       NOTE: Most of the tests in DIEHARD return a p-value, which               
+       should be uniform on [0,1) if the input file contains truly              
+       independent random bits.   Those p-values are obtained by                
+       p=F(X), where F is the assumed distribution of the sample                
+       random variable X---often normal. But that assumed F is just             
+       an asymptotic approximation, for which the fit will be worst             
+       in the tails. Thus you should not be surprised with                      
+       occasional p-values near 0 or 1, such as .0012 or .9983.                 
+       When a bit stream really FAILS BIG, you will get p's of 0 or             
+       1 to six or more places.  By all means, do not, as a                     
+       Statistician might, think that a p < .025 or p> .975 means               
+       that the RNG has "failed the test at the .05 level".  Such               
+       p's happen among the hundreds that DIEHARD produces, even                
+       with good RNG's.  So keep in mind that " p happens".                     
+     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::        
+     ::            This is the BIRTHDAY SPACINGS TEST                 ::        
+     :: Choose m birthdays in a year of n days.  List the spacings    ::        
+     :: between the birthdays.  If j is the number of values that     ::        
+     :: occur more than once in that list, then j is asymptotically   ::        
+     :: Poisson distributed with mean m^3/(4n).  Experience shows n   ::        
+     :: must be quite large, say n>=2^18, for comparing the results   ::        
+     :: to the Poisson distribution with that mean.  This test uses   ::        
+     :: n=2^24 and m=2^9,  so that the underlying distribution for j  ::        
+     :: is taken to be Poisson with lambda=2^27/(2^26)=2.  A sample   ::        
+     :: of 500 j's is taken, and a chi-square goodness of fit test    ::        
+     :: provides a p value.  The first test uses bits 1-24 (counting  ::        
+     :: from the left) from integers in the specified file.           ::        
+     ::   Then the file is closed and reopened. Next, bits 2-25 are   ::        
+     :: used to provide birthdays, then 3-26 and so on to bits 9-32.  ::        
+     :: Each set of bits provides a p-value, and the nine p-values    ::        
+     :: provide a sample for a KSTEST.                                ::        
+     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::        
+ BIRTHDAY SPACINGS TEST, M= 512 N=2**24 LAMBDA=  2.0000
+           Results for shortpi.o.bin  
+                   For a sample of size 500:     mean   
+           shortpi.o.bin   using bits  1 to 24   1.960
+  duplicate       number       number 
+  spacings       observed     expected
+        0          83.       67.668
+        1         129.      135.335
+        2         131.      135.335
+        3          84.       90.224
+        4          42.       45.112
+        5          21.       18.045
+  6 to INF         10.        8.282
+ Chisquare with  6 d.o.f. =     5.39 p-value=  .505629
+  :::::::::::::::::::::::::::::::::::::::::
+                   For a sample of size 500:     mean   
+           shortpi.o.bin   using bits  2 to 25   2.012
+  duplicate       number       number 
+  spacings       observed     expected
+        0          60.       67.668
+        1         139.      135.335
+        2         132.      135.335
+        3         106.       90.224
+        4          37.       45.112
+        5          19.       18.045
+  6 to INF          7.        8.282
+ Chisquare with  6 d.o.f. =     5.52 p-value=  .520539
+  :::::::::::::::::::::::::::::::::::::::::
+                   For a sample of size 500:     mean   
+           shortpi.o.bin   using bits  3 to 26   2.060
+  duplicate       number       number 
+  spacings       observed     expected
+        0          62.       67.668
+        1         123.      135.335
+        2         138.      135.335
+        3         106.       90.224
+        4          47.       45.112
+        5          20.       18.045
+  6 to INF          4.        8.282
+ Chisquare with  6 d.o.f. =     6.91 p-value=  .671204
+  :::::::::::::::::::::::::::::::::::::::::
+                   For a sample of size 500:     mean   
+           shortpi.o.bin   using bits  4 to 27   2.028
+  duplicate       number       number 
+  spacings       observed     expected
+        0          58.       67.668
+        1         145.      135.335
+        2         139.      135.335
+        3          81.       90.224
+        4          47.       45.112
+        5          23.       18.045
+  6 to INF          7.        8.282
+ Chisquare with  6 d.o.f. =     4.75 p-value=  .423977
+  :::::::::::::::::::::::::::::::::::::::::
+                   For a sample of size 500:     mean   
+           shortpi.o.bin   using bits  5 to 28   1.890
+  duplicate       number       number 
+  spacings       observed     expected
+        0          77.       67.668
+        1         144.      135.335
+        2         130.      135.335
+        3          88.       90.224
+        4          38.       45.112
+        5          15.       18.045
+  6 to INF          8.        8.282
+ Chisquare with  6 d.o.f. =     3.75 p-value=  .289727
+  :::::::::::::::::::::::::::::::::::::::::
+                   For a sample of size 500:     mean   
+           shortpi.o.bin   using bits  6 to 29   1.972
+  duplicate       number       number 
+  spacings       observed     expected
+        0          61.       67.668
+        1         136.      135.335
+        2         155.      135.335
+        3          87.       90.224
+        4          33.       45.112
+        5          21.       18.045
+  6 to INF          7.        8.282
+ Chisquare with  6 d.o.f. =     7.57 p-value=  .728427
+  :::::::::::::::::::::::::::::::::::::::::
+                   For a sample of size 500:     mean   
+           shortpi.o.bin   using bits  7 to 30   2.000
+  duplicate       number       number 
+  spacings       observed     expected
+        0          70.       67.668
+        1         125.      135.335
+        2         146.      135.335
+        3          90.       90.224
+        4          44.       45.112
+        5          19.       18.045
+  6 to INF          6.        8.282
+ Chisquare with  6 d.o.f. =     2.42 p-value=  .122393
+  :::::::::::::::::::::::::::::::::::::::::
+                   For a sample of size 500:     mean   
+           shortpi.o.bin   using bits  8 to 31   2.082
+  duplicate       number       number 
+  spacings       observed     expected
+        0          59.       67.668
+        1         130.      135.335
+        2         140.      135.335
+        3          94.       90.224
+        4          50.       45.112
+        5          15.       18.045
+  6 to INF         12.        8.282
+ Chisquare with  6 d.o.f. =     4.35 p-value=  .370867
+  :::::::::::::::::::::::::::::::::::::::::
+                   For a sample of size 500:     mean   
+           shortpi.o.bin   using bits  9 to 32   2.020
+  duplicate       number       number 
+  spacings       observed     expected
+        0          68.       67.668
+        1         127.      135.335
+        2         140.      135.335
+        3         100.       90.224
+        4          37.       45.112
+        5          15.       18.045
+  6 to INF         13.        8.282
+ Chisquare with  6 d.o.f. =     6.40 p-value=  .619624
+  :::::::::::::::::::::::::::::::::::::::::
+   The 9 p-values were
+        .505629   .520539   .671204   .423977   .289727
+        .728427   .122393   .370867   .619624
+  A KSTEST for the 9 p-values yields  .510487
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::        
+     ::            THE OVERLAPPING 5-PERMUTATION TEST                 ::        
+     :: This is the OPERM5 test.  It looks at a sequence of one mill- ::        
+     :: ion 32-bit random integers.  Each set of five consecutive     ::        
+     :: integers can be in one of 120 states, for the 5! possible or- ::        
+     :: derings of five numbers.  Thus the 5th, 6th, 7th,...numbers   ::        
+     :: each provide a state. As many thousands of state transitions  ::        
+     :: are observed,  cumulative counts are made of the number of    ::        
+     :: occurences of each state.  Then the quadratic form in the     ::        
+     :: weak inverse of the 120x120 covariance matrix yields a test   ::        
+     :: equivalent to the likelihood ratio test that the 120 cell     ::        
+     :: counts came from the specified (asymptotically) normal dis-   ::        
+     :: tribution with the specified 120x120 covariance matrix (with  ::        
+     :: rank 99).  This version uses 1,000,000 integers, twice.       ::        
+     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::        
+           OPERM5 test for file shortpi.o.bin  
+     For a sample of 1,000,000 consecutive 5-tuples,
+ chisquare for 99 degrees of freedom=140.641; p-value= .996183
+           OPERM5 test for file shortpi.o.bin  
+     For a sample of 1,000,000 consecutive 5-tuples,
+ chisquare for 99 degrees of freedom= 61.618; p-value= .001189
+     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::        
+     :: This is the BINARY RANK TEST for 31x31 matrices. The leftmost ::        
+     :: 31 bits of 31 random integers from the test sequence are used ::        
+     :: to form a 31x31 binary matrix over the field {0,1}. The rank  ::        
+     :: is determined. That rank can be from 0 to 31, but ranks< 28   ::        
+     :: are rare, and their counts are pooled with those for rank 28. ::        
+     :: Ranks are found for 40,000 such random matrices and a chisqua-::        
+     :: re test is performed on counts for ranks 31,30,29 and <=28.   ::        
+     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::        
+    Binary rank test for shortpi.o.bin  
+         Rank test for 31x31 binary matrices:
+        rows from leftmost 31 bits of each 32-bit integer
+      rank   observed  expected (o-e)^2/e  sum
+        28       219     211.4   .271909     .272
+        29      5107    5134.0   .142102     .414
+        30     23160   23103.0   .140400     .554
+        31     11514   11551.5   .121896     .676
+  chisquare=  .676 for 3 d. of f.; p-value= .326669
+--------------------------------------------------------------
+     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::        
+     :: This is the BINARY RANK TEST for 32x32 matrices. A random 32x ::        
+     :: 32 binary matrix is formed, each row a 32-bit random integer. ::        
+     :: The rank is determined. That rank can be from 0 to 32, ranks  ::        
+     :: less than 29 are rare, and their counts are pooled with those ::        
+     :: for rank 29.  Ranks are found for 40,000 such random matrices ::        
+     :: and a chisquare test is performed on counts for ranks  32,31, ::        
+     :: 30 and <=29.                                                  ::        
+     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::        
+    Binary rank test for shortpi.o.bin  
+         Rank test for 32x32 binary matrices:
+        rows from leftmost 32 bits of each 32-bit integer
+      rank   observed  expected (o-e)^2/e  sum
+        29       202     211.4   .419543     .420
+        30      5169    5134.0   .238465     .658
+        31     23268   23103.0  1.177747    1.836
+        32     11361   11551.5  3.142404    4.978
+  chisquare= 4.978 for 3 d. of f.; p-value= .839431
+--------------------------------------------------------------
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::        
+     :: This is the BINARY RANK TEST for 6x8 matrices.  From each of  ::        
+     :: six random 32-bit integers from the generator under test, a   ::        
+     :: specified byte is chosen, and the resulting six bytes form a  ::        
+     :: 6x8 binary matrix whose rank is determined.  That rank can be ::        
+     :: from 0 to 6, but ranks 0,1,2,3 are rare; their counts are     ::        
+     :: pooled with those for rank 4. Ranks are found for 100,000     ::        
+     :: random matrices, and a chi-square test is performed on        ::        
+     :: counts for ranks 6,5 and <=4.                                 ::        
+     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::        
+         Binary Rank Test for shortpi.o.bin  
+        Rank of a 6x8 binary matrix,
+     rows formed from eight bits of the RNG shortpi.o.bin  
+     b-rank test for bits  1 to  8
+                     OBSERVED   EXPECTED     (O-E)^2/E      SUM
+          r<=4          997       944.3       2.941       2.941
+          r =5        21747     21743.9        .000       2.941
+          r =6        77256     77311.8        .040       2.982
+                        p=1-exp(-SUM/2)= .77482
+        Rank of a 6x8 binary matrix,
+     rows formed from eight bits of the RNG shortpi.o.bin  
+     b-rank test for bits  2 to  9
+                     OBSERVED   EXPECTED     (O-E)^2/E      SUM
+          r<=4          926       944.3        .355        .355
+          r =5        21671     21743.9        .244        .599
+          r =6        77403     77311.8        .108        .707
+                        p=1-exp(-SUM/2)= .29766
+        Rank of a 6x8 binary matrix,
+     rows formed from eight bits of the RNG shortpi.o.bin  
+     b-rank test for bits  3 to 10
+                     OBSERVED   EXPECTED     (O-E)^2/E      SUM
+          r<=4          925       944.3        .395        .395
+          r =5        21741     21743.9        .000        .395
+          r =6        77334     77311.8        .006        .401
+                        p=1-exp(-SUM/2)= .18179
+        Rank of a 6x8 binary matrix,
+     rows formed from eight bits of the RNG shortpi.o.bin  
+     b-rank test for bits  4 to 11
+                     OBSERVED   EXPECTED     (O-E)^2/E      SUM
+          r<=4          938       944.3        .042        .042
+          r =5        21558     21743.9       1.589       1.631
+          r =6        77504     77311.8        .478       2.109
+                        p=1-exp(-SUM/2)= .65167
+        Rank of a 6x8 binary matrix,
+     rows formed from eight bits of the RNG shortpi.o.bin  
+     b-rank test for bits  5 to 12
+                     OBSERVED   EXPECTED     (O-E)^2/E      SUM
+          r<=4          941       944.3        .012        .012
+          r =5        21722     21743.9        .022        .034
+          r =6        77337     77311.8        .008        .042
+                        p=1-exp(-SUM/2)= .02069
+        Rank of a 6x8 binary matrix,
+     rows formed from eight bits of the RNG shortpi.o.bin  
+     b-rank test for bits  6 to 13
+                     OBSERVED   EXPECTED     (O-E)^2/E      SUM
+          r<=4          927       944.3        .317        .317
+          r =5        21715     21743.9        .038        .355
+          r =6        77358     77311.8        .028        .383
+                        p=1-exp(-SUM/2)= .17428
+        Rank of a 6x8 binary matrix,
+     rows formed from eight bits of the RNG shortpi.o.bin  
+     b-rank test for bits  7 to 14
+                     OBSERVED   EXPECTED     (O-E)^2/E      SUM
+          r<=4          940       944.3        .020        .020
+          r =5        21729     21743.9        .010        .030
+          r =6        77331     77311.8        .005        .035
+                        p=1-exp(-SUM/2)= .01714
+        Rank of a 6x8 binary matrix,
+     rows formed from eight bits of the RNG shortpi.o.bin  
+     b-rank test for bits  8 to 15
+                     OBSERVED   EXPECTED     (O-E)^2/E      SUM
+          r<=4          947       944.3        .008        .008
+          r =5        22062     21743.9       4.654       4.661
+          r =6        76991     77311.8       1.331       5.992
+                        p=1-exp(-SUM/2)= .95003
+        Rank of a 6x8 binary matrix,
+     rows formed from eight bits of the RNG shortpi.o.bin  
+     b-rank test for bits  9 to 16
+                     OBSERVED   EXPECTED     (O-E)^2/E      SUM
+          r<=4          963       944.3        .370        .370
+          r =5        21855     21743.9        .568        .938
+          r =6        77182     77311.8        .218       1.156
+                        p=1-exp(-SUM/2)= .43894
+        Rank of a 6x8 binary matrix,
+     rows formed from eight bits of the RNG shortpi.o.bin  
+     b-rank test for bits 10 to 17
+                     OBSERVED   EXPECTED     (O-E)^2/E      SUM
+          r<=4          992       944.3       2.409       2.409
+          r =5        21609     21743.9        .837       3.246
+          r =6        77399     77311.8        .098       3.345
+                        p=1-exp(-SUM/2)= .81219
+        Rank of a 6x8 binary matrix,
+     rows formed from eight bits of the RNG shortpi.o.bin  
+     b-rank test for bits 11 to 18
+                     OBSERVED   EXPECTED     (O-E)^2/E      SUM
+          r<=4          944       944.3        .000        .000
+          r =5        21605     21743.9        .887        .887
+          r =6        77451     77311.8        .251       1.138
+                        p=1-exp(-SUM/2)= .43391
+        Rank of a 6x8 binary matrix,
+     rows formed from eight bits of the RNG shortpi.o.bin  
+     b-rank test for bits 12 to 19
+                     OBSERVED   EXPECTED     (O-E)^2/E      SUM
+          r<=4          966       944.3        .499        .499
+          r =5        21782     21743.9        .067        .565
+          r =6        77252     77311.8        .046        .612
+                        p=1-exp(-SUM/2)= .26348
+        Rank of a 6x8 binary matrix,
+     rows formed from eight bits of the RNG shortpi.o.bin  
+     b-rank test for bits 13 to 20
+                     OBSERVED   EXPECTED     (O-E)^2/E      SUM
+          r<=4          946       944.3        .003        .003
+          r =5        21811     21743.9        .207        .210
+          r =6        77243     77311.8        .061        .271
+                        p=1-exp(-SUM/2)= .12687
+        Rank of a 6x8 binary matrix,
+     rows formed from eight bits of the RNG shortpi.o.bin  
+     b-rank test for bits 14 to 21
+                     OBSERVED   EXPECTED     (O-E)^2/E      SUM
+          r<=4          918       944.3        .733        .733
+          r =5        21848     21743.9        .498       1.231
+          r =6        77234     77311.8        .078       1.309
+                        p=1-exp(-SUM/2)= .48036
+        Rank of a 6x8 binary matrix,
+     rows formed from eight bits of the RNG shortpi.o.bin  
+     b-rank test for bits 15 to 22
+                     OBSERVED   EXPECTED     (O-E)^2/E      SUM
+          r<=4          977       944.3       1.132       1.132
+          r =5        21872     21743.9        .755       1.887
+          r =6        77151     77311.8        .334       2.221
+                        p=1-exp(-SUM/2)= .67067
+        Rank of a 6x8 binary matrix,
+     rows formed from eight bits of the RNG shortpi.o.bin  
+     b-rank test for bits 16 to 23
+                     OBSERVED   EXPECTED     (O-E)^2/E      SUM
+          r<=4          903       944.3       1.806       1.806
+          r =5        22018     21743.9       3.455       5.262
+          r =6        77079     77311.8        .701       5.963
+                        p=1-exp(-SUM/2)= .94928
+        Rank of a 6x8 binary matrix,
+     rows formed from eight bits of the RNG shortpi.o.bin  
+     b-rank test for bits 17 to 24
+                     OBSERVED   EXPECTED     (O-E)^2/E      SUM
+          r<=4          929       944.3        .248        .248
+          r =5        21822     21743.9        .281        .528
+          r =6        77249     77311.8        .051        .579
+                        p=1-exp(-SUM/2)= .25154
+        Rank of a 6x8 binary matrix,
+     rows formed from eight bits of the RNG shortpi.o.bin  
+     b-rank test for bits 18 to 25
+                     OBSERVED   EXPECTED     (O-E)^2/E      SUM
+          r<=4          933       944.3        .135        .135
+          r =5        21770     21743.9        .031        .167
+          r =6        77297     77311.8        .003        .169
+                        p=1-exp(-SUM/2)= .08122
+        Rank of a 6x8 binary matrix,
+     rows formed from eight bits of the RNG shortpi.o.bin  
+     b-rank test for bits 19 to 26
+                     OBSERVED   EXPECTED     (O-E)^2/E      SUM
+          r<=4          956       944.3        .145        .145
+          r =5        21966     21743.9       2.269       2.414
+          r =6        77078     77311.8        .707       3.121
+                        p=1-exp(-SUM/2)= .78993
+        Rank of a 6x8 binary matrix,
+     rows formed from eight bits of the RNG shortpi.o.bin  
+     b-rank test for bits 20 to 27
+                     OBSERVED   EXPECTED     (O-E)^2/E      SUM
+          r<=4          965       944.3        .454        .454
+          r =5        22018     21743.9       3.455       3.909
+          r =6        77017     77311.8       1.124       5.033
+                        p=1-exp(-SUM/2)= .91926
+        Rank of a 6x8 binary matrix,
+     rows formed from eight bits of the RNG shortpi.o.bin  
+     b-rank test for bits 21 to 28
+                     OBSERVED   EXPECTED     (O-E)^2/E      SUM
+          r<=4          982       944.3       1.505       1.505
+          r =5        21861     21743.9        .631       2.136
+          r =6        77157     77311.8        .310       2.446
+                        p=1-exp(-SUM/2)= .70560
+        Rank of a 6x8 binary matrix,
+     rows formed from eight bits of the RNG shortpi.o.bin  
+     b-rank test for bits 22 to 29
+                     OBSERVED   EXPECTED     (O-E)^2/E      SUM
+          r<=4         1003       944.3       3.649       3.649
+          r =5        21631     21743.9        .586       4.235
+          r =6        77366     77311.8        .038       4.273
+                        p=1-exp(-SUM/2)= .88193
+        Rank of a 6x8 binary matrix,
+     rows formed from eight bits of the RNG shortpi.o.bin  
+     b-rank test for bits 23 to 30
+                     OBSERVED   EXPECTED     (O-E)^2/E      SUM
+          r<=4          951       944.3        .048        .048
+          r =5        21739     21743.9        .001        .049
+          r =6        77310     77311.8        .000        .049
+                        p=1-exp(-SUM/2)= .02404
+        Rank of a 6x8 binary matrix,
+     rows formed from eight bits of the RNG shortpi.o.bin  
+     b-rank test for bits 24 to 31
+                     OBSERVED   EXPECTED     (O-E)^2/E      SUM
+          r<=4          981       944.3       1.426       1.426
+          r =5        22058     21743.9       4.537       5.964
+          r =6        76961     77311.8       1.592       7.555
+                        p=1-exp(-SUM/2)= .97712
+        Rank of a 6x8 binary matrix,
+     rows formed from eight bits of the RNG shortpi.o.bin  
+     b-rank test for bits 25 to 32
+                     OBSERVED   EXPECTED     (O-E)^2/E      SUM
+          r<=4          946       944.3        .003        .003
+          r =5        21979     21743.9       2.542       2.545
+          r =6        77075     77311.8        .725       3.270
+                        p=1-exp(-SUM/2)= .80508
+   TEST SUMMARY, 25 tests on 100,000 random 6x8 matrices
+ These should be 25 uniform [0,1] random variables:
+     .774817     .297660     .181790     .651669     .020688
+     .174282     .017136     .950026     .438943     .812189
+     .433911     .263476     .126875     .480361     .670673
+     .949275     .251540     .081219     .789927     .919263
+     .705599     .881931     .024039     .977124     .805080
+   brank test summary for shortpi.o.bin  
+       The KS test for those 25 supposed UNI's yields
+                    KS p-value= .516558
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::        
+     ::                   THE BITSTREAM TEST                          ::        
+     :: The file under test is viewed as a stream of bits. Call them  ::        
+     :: b1,b2,... .  Consider an alphabet with two "letters", 0 and 1 ::        
+     :: and think of the stream of bits as a succession of 20-letter  ::        
+     :: "words", overlapping.  Thus the first word is b1b2...b20, the ::        
+     :: second is b2b3...b21, and so on.  The bitstream test counts   ::        
+     :: the number of missing 20-letter (20-bit) words in a string of ::        
+     :: 2^21 overlapping 20-letter words.  There are 2^20 possible 20 ::        
+     :: letter words.  For a truly random string of 2^21+19 bits, the ::        
+     :: number of missing words j should be (very close to) normally  ::        
+     :: distributed with mean 141,909 and sigma 428.  Thus            ::        
+     ::  (j-141909)/428 should be a standard normal variate (z score) ::        
+     :: that leads to a uniform [0,1) p value.  The test is repeated  ::        
+     :: twenty times.                                                 ::        
+     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::        
+ THE OVERLAPPING 20-tuples BITSTREAM  TEST, 20 BITS PER WORD, N words
+   This test uses N=2^21 and samples the bitstream 20 times.
+  No. missing words should average  141909. with sigma=428.
+---------------------------------------------------------
+ tst no  1:  142744 missing words,    1.95 sigmas from mean, p-value= .97442
+ tst no  2:  142488 missing words,    1.35 sigmas from mean, p-value= .91182
+ tst no  3:  142583 missing words,    1.57 sigmas from mean, p-value= .94226
+ tst no  4:  142485 missing words,    1.35 sigmas from mean, p-value= .91069
+ tst no  5:  142311 missing words,     .94 sigmas from mean, p-value= .82600
+ tst no  6:  142202 missing words,     .68 sigmas from mean, p-value= .75295
+ tst no  7:  142402 missing words,    1.15 sigmas from mean, p-value= .87515
+ tst no  8:  142938 missing words,    2.40 sigmas from mean, p-value= .99188
+ tst no  9:  142468 missing words,    1.31 sigmas from mean, p-value= .90411
+ tst no 10:  143014 missing words,    2.58 sigmas from mean, p-value= .99507
+ tst no 11:  142827 missing words,    2.14 sigmas from mean, p-value= .98399
+ tst no 12:  142502 missing words,    1.38 sigmas from mean, p-value= .91694
+ tst no 13:  142570 missing words,    1.54 sigmas from mean, p-value= .93866
+ tst no 14:  142369 missing words,    1.07 sigmas from mean, p-value= .85859
+ tst no 15:  142747 missing words,    1.96 sigmas from mean, p-value= .97484
+ tst no 16:  143108 missing words,    2.80 sigmas from mean, p-value= .99745
+ tst no 17:  142992 missing words,    2.53 sigmas from mean, p-value= .99429
+ tst no 18:  143388 missing words,    3.45 sigmas from mean, p-value= .99972
+ tst no 19:  143333 missing words,    3.33 sigmas from mean, p-value= .99956
+ tst no 20:  142525 missing words,    1.44 sigmas from mean, p-value= .92485
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::        
+     ::             The tests OPSO, OQSO and DNA                      ::        
+     ::         OPSO means Overlapping-Pairs-Sparse-Occupancy         ::        
+     :: The OPSO test considers 2-letter words from an alphabet of    ::        
+     :: 1024 letters.  Each letter is determined by a specified ten   ::        
+     :: bits from a 32-bit integer in the sequence to be tested. OPSO ::        
+     :: generates  2^21 (overlapping) 2-letter words  (from 2^21+1    ::        
+     :: "keystrokes")  and counts the number of missing words---that  ::        
+     :: is 2-letter words which do not appear in the entire sequence. ::        
+     :: That count should be very close to normally distributed with  ::        
+     :: mean 141,909, sigma 290. Thus (missingwrds-141909)/290 should ::        
+     :: be a standard normal variable. The OPSO test takes 32 bits at ::        
+     :: a time from the test file and uses a designated set of ten    ::        
+     :: consecutive bits. It then restarts the file for the next de-  ::        
+     :: signated 10 bits, and so on.                                  ::        
+     ::                                                               ::        
+     ::     OQSO means Overlapping-Quadruples-Sparse-Occupancy        ::        
+     ::   The test OQSO is similar, except that it considers 4-letter ::        
+     :: words from an alphabet of 32 letters, each letter determined  ::        
+     :: by a designated string of 5 consecutive bits from the test    ::        
+     :: file, elements of which are assumed 32-bit random integers.   ::        
+     :: The mean number of missing words in a sequence of 2^21 four-  ::        
+     :: letter words,  (2^21+3 "keystrokes"), is again 141909, with   ::        
+     :: sigma = 295.  The mean is based on theory; sigma comes from   ::        
+     :: extensive simulation.                                         ::        
+     ::                                                               ::        
+     ::    The DNA test considers an alphabet of 4 letters::  C,G,A,T,::        
+     :: determined by two designated bits in the sequence of random   ::        
+     :: integers being tested.  It considers 10-letter words, so that ::        
+     :: as in OPSO and OQSO, there are 2^20 possible words, and the   ::        
+     :: mean number of missing words from a string of 2^21  (over-    ::        
+     :: lapping)  10-letter  words (2^21+9 "keystrokes") is 141909.   ::        
+     :: The standard deviation sigma=339 was determined as for OQSO   ::        
+     :: by simulation.  (Sigma for OPSO, 290, is the true value (to   ::        
+     :: three places), not determined by simulation.                  ::        
+     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::        
+ OPSO test for generator shortpi.o.bin  
+  Output: No. missing words (mw), equiv normal variate (z), p-value (p)
+                                                           mw     z     p
+    OPSO for shortpi.o.bin   using bits 23 to 32        149563 26.392 1.0000
+    OPSO for shortpi.o.bin   using bits 22 to 31        145378 11.961 1.0000
+    OPSO for shortpi.o.bin   using bits 21 to 30        143612  5.871 1.0000
+    OPSO for shortpi.o.bin   using bits 20 to 29        142554  2.223  .9869
+    OPSO for shortpi.o.bin   using bits 19 to 28        143162  4.320 1.0000
+    OPSO for shortpi.o.bin   using bits 18 to 27        145093 10.978 1.0000
+    OPSO for shortpi.o.bin   using bits 17 to 26        149566 26.402 1.0000
+    OPSO for shortpi.o.bin   using bits 16 to 25        149092 24.768 1.0000
+    OPSO for shortpi.o.bin   using bits 15 to 24        148584 23.016 1.0000
+    OPSO for shortpi.o.bin   using bits 14 to 23        144737  9.751 1.0000
+    OPSO for shortpi.o.bin   using bits 13 to 22        143573  5.737 1.0000
+    OPSO for shortpi.o.bin   using bits 12 to 21        142867  3.302  .9995
+    OPSO for shortpi.o.bin   using bits 11 to 20        143370  5.037 1.0000
+    OPSO for shortpi.o.bin   using bits 10 to 19        144958 10.513 1.0000
+    OPSO for shortpi.o.bin   using bits  9 to 18        149053 24.633 1.0000
+    OPSO for shortpi.o.bin   using bits  8 to 17        149545 26.330 1.0000
+    OPSO for shortpi.o.bin   using bits  7 to 16        149094 24.775 1.0000
+    OPSO for shortpi.o.bin   using bits  6 to 15        144933 10.426 1.0000
+    OPSO for shortpi.o.bin   using bits  5 to 14        143257  4.647 1.0000
+    OPSO for shortpi.o.bin   using bits  4 to 13        141878  -.108  .4570
+    OPSO for shortpi.o.bin   using bits  3 to 12        143043  3.909 1.0000
+    OPSO for shortpi.o.bin   using bits  2 to 11        144226  7.989 1.0000
+    OPSO for shortpi.o.bin   using bits  1 to 10        148571 22.971 1.0000
+ OQSO test for generator shortpi.o.bin  
+  Output: No. missing words (mw), equiv normal variate (z), p-value (p)
+                                                           mw     z     p
+    OQSO for shortpi.o.bin   using bits 28 to 32        142753  2.860  .9979
+    OQSO for shortpi.o.bin   using bits 27 to 31        142956  3.548  .9998
+    OQSO for shortpi.o.bin   using bits 26 to 30        143118  4.097 1.0000
+    OQSO for shortpi.o.bin   using bits 25 to 29        141937   .094  .5374
+    OQSO for shortpi.o.bin   using bits 24 to 28        142101   .650  .7421
+    OQSO for shortpi.o.bin   using bits 23 to 27        141725  -.625  .2660
+    OQSO for shortpi.o.bin   using bits 22 to 26        142809  3.050  .9989
+    OQSO for shortpi.o.bin   using bits 21 to 25        142332  1.433  .9240
+    OQSO for shortpi.o.bin   using bits 20 to 24        142778  2.945  .9984
+    OQSO for shortpi.o.bin   using bits 19 to 23        143133  4.148 1.0000
+    OQSO for shortpi.o.bin   using bits 18 to 22        142924  3.440  .9997
+    OQSO for shortpi.o.bin   using bits 17 to 21        142276  1.243  .8931
+    OQSO for shortpi.o.bin   using bits 16 to 20        142268  1.216  .8880
+    OQSO for shortpi.o.bin   using bits 15 to 19        142208  1.012  .8443
+    OQSO for shortpi.o.bin   using bits 14 to 18        142560  2.206  .9863
+    OQSO for shortpi.o.bin   using bits 13 to 17        142409  1.694  .9548
+    OQSO for shortpi.o.bin   using bits 12 to 16        143140  4.172 1.0000
+    OQSO for shortpi.o.bin   using bits 11 to 15        142908  3.385  .9996
+    OQSO for shortpi.o.bin   using bits 10 to 14        143058  3.894 1.0000
+    OQSO for shortpi.o.bin   using bits  9 to 13        142066   .531  .7023
+    OQSO for shortpi.o.bin   using bits  8 to 12        142254  1.168  .8787
+    OQSO for shortpi.o.bin   using bits  7 to 11        142307  1.348  .9112
+    OQSO for shortpi.o.bin   using bits  6 to 10        142010   .341  .6335
+    OQSO for shortpi.o.bin   using bits  5 to  9        142615  2.392  .9916
+    OQSO for shortpi.o.bin   using bits  4 to  8        143183  4.318 1.0000
+    OQSO for shortpi.o.bin   using bits  3 to  7        143043  3.843  .9999
+    OQSO for shortpi.o.bin   using bits  2 to  6        143301  4.718 1.0000
+    OQSO for shortpi.o.bin   using bits  1 to  5        142106   .667  .7475
+  DNA test for generator shortpi.o.bin  
+  Output: No. missing words (mw), equiv normal variate (z), p-value (p)
+                                                           mw     z     p
+     DNA for shortpi.o.bin   using bits 31 to 32        142209   .884  .8116
+     DNA for shortpi.o.bin   using bits 30 to 31        141843  -.196  .4224
+     DNA for shortpi.o.bin   using bits 29 to 30        142799  2.624  .9957
+     DNA for shortpi.o.bin   using bits 28 to 29        141584  -.960  .1686
+     DNA for shortpi.o.bin   using bits 27 to 28        141661  -.733  .2319
+     DNA for shortpi.o.bin   using bits 26 to 27        141559 -1.033  .1507
+     DNA for shortpi.o.bin   using bits 25 to 26        142055   .430  .6663
+     DNA for shortpi.o.bin   using bits 24 to 25        141997   .259  .6020
+     DNA for shortpi.o.bin   using bits 23 to 24        143311  4.135 1.0000
+     DNA for shortpi.o.bin   using bits 22 to 23        142177   .790  .7851
+     DNA for shortpi.o.bin   using bits 21 to 22        142182   .804  .7894
+     DNA for shortpi.o.bin   using bits 20 to 21        141698  -.623  .2665
+     DNA for shortpi.o.bin   using bits 19 to 20        142337  1.262  .8964
+     DNA for shortpi.o.bin   using bits 18 to 19        142089   .530  .7019
+     DNA for shortpi.o.bin   using bits 17 to 18        141847  -.184  .4271
+     DNA for shortpi.o.bin   using bits 16 to 17        142316  1.200  .8849
+     DNA for shortpi.o.bin   using bits 15 to 16        142613  2.076  .9810
+     DNA for shortpi.o.bin   using bits 14 to 15        142826  2.704  .9966
+     DNA for shortpi.o.bin   using bits 13 to 14        142024   .338  .6324
+     DNA for shortpi.o.bin   using bits 12 to 13        140979 -2.744  .0030
+     DNA for shortpi.o.bin   using bits 11 to 12        142264  1.046  .8523
+     DNA for shortpi.o.bin   using bits 10 to 11        142237   .967  .8331
+     DNA for shortpi.o.bin   using bits  9 to 10        141420 -1.443  .0744
+     DNA for shortpi.o.bin   using bits  8 to  9        142194   .840  .7995
+     DNA for shortpi.o.bin   using bits  7 to  8        142027   .347  .6357
+     DNA for shortpi.o.bin   using bits  6 to  7        142465  1.639  .9494
+     DNA for shortpi.o.bin   using bits  5 to  6        143011  3.250  .9994
+     DNA for shortpi.o.bin   using bits  4 to  5        141858  -.151  .4398
+     DNA for shortpi.o.bin   using bits  3 to  4        141802  -.317  .3758
+     DNA for shortpi.o.bin   using bits  2 to  3        142316  1.200  .8849
+     DNA for shortpi.o.bin   using bits  1 to  2        142467  1.645  .9500
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::        
+     ::     This is the COUNT-THE-1's TEST on a stream of bytes.      ::        
+     :: Consider the file under test as a stream of bytes (four per   ::        
+     :: 32 bit integer).  Each byte can contain from 0 to 8 1's,      ::        
+     :: with probabilities 1,8,28,56,70,56,28,8,1 over 256.  Now let  ::        
+     :: the stream of bytes provide a string of overlapping  5-letter ::        
+     :: words, each "letter" taking values A,B,C,D,E. The letters are ::        
+     :: determined by the number of 1's in a byte::  0,1,or 2 yield A,::        
+     :: 3 yields B, 4 yields C, 5 yields D and 6,7 or 8 yield E. Thus ::        
+     :: we have a monkey at a typewriter hitting five keys with vari- ::        
+     :: ous probabilities (37,56,70,56,37 over 256).  There are 5^5   ::        
+     :: possible 5-letter words, and from a string of 256,000 (over-  ::        
+     :: lapping) 5-letter words, counts are made on the frequencies   ::        
+     :: for each word.   The quadratic form in the weak inverse of    ::        
+     :: the covariance matrix of the cell counts provides a chisquare ::        
+     :: test::  Q5-Q4, the difference of the naive Pearson sums of    ::        
+     :: (OBS-EXP)^2/EXP on counts for 5- and 4-letter cell counts.    ::        
+     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::        
+   Test results for shortpi.o.bin  
+ Chi-square with 5^5-5^4=2500 d.of f. for sample size:2560000
+                               chisquare  equiv normal  p-value
+  Results fo COUNT-THE-1's in successive bytes:
+ byte stream for shortpi.o.bin    3055.36      7.854     1.000000
+ byte stream for shortpi.o.bin    2957.62      6.472     1.000000
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::        
+     ::     This is the COUNT-THE-1's TEST for specific bytes.        ::        
+     :: Consider the file under test as a stream of 32-bit integers.  ::        
+     :: From each integer, a specific byte is chosen , say the left-  ::        
+     :: most::  bits 1 to 8. Each byte can contain from 0 to 8 1's,   ::        
+     :: with probabilitie 1,8,28,56,70,56,28,8,1 over 256.  Now let   ::        
+     :: the specified bytes from successive integers provide a string ::        
+     :: of (overlapping) 5-letter words, each "letter" taking values  ::        
+     :: A,B,C,D,E. The letters are determined  by the number of 1's,  ::        
+     :: in that byte::  0,1,or 2 ---> A, 3 ---> B, 4 ---> C, 5 ---> D,::        
+     :: and  6,7 or 8 ---> E.  Thus we have a monkey at a typewriter  ::        
+     :: hitting five keys with with various probabilities::  37,56,70,::        
+     :: 56,37 over 256. There are 5^5 possible 5-letter words, and    ::        
+     :: from a string of 256,000 (overlapping) 5-letter words, counts ::        
+     :: are made on the frequencies for each word. The quadratic form ::        
+     :: in the weak inverse of the covariance matrix of the cell      ::        
+     :: counts provides a chisquare test::  Q5-Q4, the difference of  ::        
+     :: the naive Pearson  sums of (OBS-EXP)^2/EXP on counts for 5-   ::        
+     :: and 4-letter cell counts.                                     ::        
+     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::        
+ Chi-square with 5^5-5^4=2500 d.of f. for sample size: 256000
+                      chisquare  equiv normal  p value
+  Results for COUNT-THE-1's in specified bytes:
+           bits  1 to  8  2566.60       .942      .826855
+           bits  2 to  9  2601.59      1.437      .924602
+           bits  3 to 10  2475.40      -.348      .363981
+           bits  4 to 11  2530.72       .434      .667996
+           bits  5 to 12  2667.23      2.365      .990984
+           bits  6 to 13  2545.08       .638      .738105
+           bits  7 to 14  2552.99       .749      .773173
+           bits  8 to 15  2481.10      -.267      .394603
+           bits  9 to 16  2497.04      -.042      .483333
+           bits 10 to 17  2525.91       .366      .642963
+           bits 11 to 18  2445.59      -.769      .220827
+           bits 12 to 19  2473.07      -.381      .351674
+           bits 13 to 20  2588.77      1.255      .895341
+           bits 14 to 21  2722.60      3.148      .999178
+           bits 15 to 22  2460.31      -.561      .287296
+           bits 16 to 23  2417.42     -1.168      .121422
+           bits 17 to 24  2461.29      -.547      .292052
+           bits 18 to 25  2444.19      -.789      .214990
+           bits 19 to 26  2397.71     -1.447      .074014
+           bits 20 to 27  2412.88     -1.232      .108974
+           bits 21 to 28  2563.81       .902      .816573
+           bits 22 to 29  2567.47       .954      .829993
+           bits 23 to 30  2507.10       .100      .540014
+           bits 24 to 31  2496.46      -.050      .480011
+           bits 25 to 32  2534.05       .482      .684950
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::        
+     ::               THIS IS A PARKING LOT TEST                      ::        
+     :: In a square of side 100, randomly "park" a car---a circle of  ::        
+     :: radius 1.   Then try to park a 2nd, a 3rd, and so on, each    ::        
+     :: time parking "by ear".  That is, if an attempt to park a car  ::        
+     :: causes a crash with one already parked, try again at a new    ::        
+     :: random location. (To avoid path problems, consider parking    ::        
+     :: helicopters rather than cars.)   Each attempt leads to either ::        
+     :: a crash or a success, the latter followed by an increment to  ::        
+     :: the list of cars already parked. If we plot n:  the number of ::        
+     :: attempts, versus k::  the number successfully parked, we get a::        
+     :: curve that should be similar to those provided by a perfect   ::        
+     :: random number generator.  Theory for the behavior of such a   ::        
+     :: random curve seems beyond reach, and as graphics displays are ::        
+     :: not available for this battery of tests, a simple characteriz ::        
+     :: ation of the random experiment is used: k, the number of cars ::        
+     :: successfully parked after n=12,000 attempts. Simulation shows ::        
+     :: that k should average 3523 with sigma 21.9 and is very close  ::        
+     :: to normally distributed.  Thus (k-3523)/21.9 should be a st-  ::        
+     :: andard normal variable, which, converted to a uniform varia-  ::        
+     :: ble, provides input to a KSTEST based on a sample of 10.      ::        
+     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::        
+           CDPARK: result of ten tests on file shortpi.o.bin  
+            Of 12,000 tries, the average no. of successes
+                 should be 3523 with sigma=21.9
+            Successes: 3491    z-score: -1.461 p-value: .071982
+            Successes: 3490    z-score: -1.507 p-value: .065925
+            Successes: 3502    z-score:  -.959 p-value: .168804
+            Successes: 3481    z-score: -1.918 p-value: .027568
+            Successes: 3517    z-score:  -.274 p-value: .392053
+            Successes: 3513    z-score:  -.457 p-value: .323972
+            Successes: 3464    z-score: -2.694 p-value: .003529
+            Successes: 3520    z-score:  -.137 p-value: .445521
+            Successes: 3490    z-score: -1.507 p-value: .065925
+            Successes: 3521    z-score:  -.091 p-value: .463618
+ 
+           square size   avg. no.  parked   sample sigma
+             100.            3498.900       17.966
+            KSTEST for the above 10: p=  .999213
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::        
+     ::               THE MINIMUM DISTANCE TEST                       ::        
+     :: It does this 100 times::   choose n=8000 random points in a   ::        
+     :: square of side 10000.  Find d, the minimum distance between   ::        
+     :: the (n^2-n)/2 pairs of points.  If the points are truly inde- ::        
+     :: pendent uniform, then d^2, the square of the minimum distance ::        
+     :: should be (very close to) exponentially distributed with mean ::        
+     :: .995 .  Thus 1-exp(-d^2/.995) should be uniform on [0,1) and  ::        
+     :: a KSTEST on the resulting 100 values serves as a test of uni- ::        
+     :: formity for random points in the square. Test numbers=0 mod 5 ::        
+     :: are printed but the KSTEST is based on the full set of 100    ::        
+     :: random choices of 8000 points in the 10000x10000 square.      ::        
+     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::        
+               This is the MINIMUM DISTANCE test
+              for random integers in the file shortpi.o.bin  
+     Sample no.    d^2     avg     equiv uni            
+           5     .3071   1.2353     .265591
+          10    2.0853   1.4068     .877030
+          15    1.8767   1.1254     .848341
+          20    1.3166   1.3811     .733732
+          25     .7601   1.3666     .534164
+          30     .9134   1.2608     .600670
+          35    1.2946   1.2474     .727763
+          40    3.2600   1.2687     .962234
+          45    3.3867   1.2783     .966749
+          50    1.7018   1.2194     .819194
+          55    1.7349   1.2197     .825122
+          60     .4469   1.1951     .361835
+          65    1.7429   1.2280     .826516
+          70     .2534   1.1912     .224839
+          75     .8189   1.2267     .560883
+          80     .6610   1.2155     .485401
+          85    1.7626   1.2027     .829909
+          90    1.1220   1.1711     .676194
+          95     .2747   1.1747     .241243
+         100     .8490   1.1826     .573983
+     MINIMUM DISTANCE TEST for shortpi.o.bin  
+          Result of KS test on 20 transformed mindist^2's:
+                                  p-value= .957646
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ 
+
+     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::        
+     ::              THE 3DSPHERES TEST                               ::        
+     :: Choose  4000 random points in a cube of edge 1000.  At each   ::        
+     :: point, center a sphere large enough to reach the next closest ::        
+     :: point. Then the volume of the smallest such sphere is (very   ::        
+     :: close to) exponentially distributed with mean 120pi/3.  Thus  ::        
+     :: the radius cubed is exponential with mean 30. (The mean is    ::        
+     :: obtained by extensive simulation).  The 3DSPHERES test gener- ::        
+     :: ates 4000 such spheres 20 times.  Each min radius cubed leads ::        
+     :: to a uniform variable by means of 1-exp(-r^3/30.), then a     ::        
+     ::  KSTEST is done on the 20 p-values.                           ::        
+     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::        
+               The 3DSPHERES test for file shortpi.o.bin  
+ sample no:  1     r^3=  17.474     p-value= .44148
+ sample no:  2     r^3=  46.009     p-value= .78425
+ sample no:  3     r^3=  17.407     p-value= .44024
+ sample no:  4     r^3=  22.478     p-value= .52729
+ sample no:  5     r^3=  44.743     p-value= .77495
+ sample no:  6     r^3=  10.818     p-value= .30274
+ sample no:  7     r^3=  40.281     p-value= .73886
+ sample no:  8     r^3=  30.132     p-value= .63374
+ sample no:  9     r^3=  64.844     p-value= .88484
+ sample no: 10     r^3=   7.839     p-value= .22994
+ sample no: 11     r^3=   1.984     p-value= .06400
+ sample no: 12     r^3=  30.567     p-value= .63900
+ sample no: 13     r^3=  28.647     p-value= .61515
+ sample no: 14     r^3=   7.177     p-value= .21277
+ sample no: 15     r^3=   3.527     p-value= .11093
+ sample no: 16     r^3=  15.083     p-value= .39514
+ sample no: 17     r^3= 152.094     p-value= .99372
+ sample no: 18     r^3=  48.427     p-value= .80095
+ sample no: 19     r^3=  19.442     p-value= .47694
+ sample no: 20     r^3=   3.964     p-value= .12377
+  A KS test is applied to those 20 p-values.
+---------------------------------------------------------
+       3DSPHERES test for file shortpi.o.bin        p-value= .032885
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::        
+     ::      This is the SQEEZE test                                  ::        
+     ::  Random integers are floated to get uniforms on [0,1). Start- ::        
+     ::  ing with k=2^31=2147483647, the test finds j, the number of  ::        
+     ::  iterations necessary to reduce k to 1, using the reduction   ::        
+     ::  k=ceiling(k*U), with U provided by floating integers from    ::        
+     ::  the file being tested.  Such j's are found 100,000 times,    ::        
+     ::  then counts for the number of times j was <=6,7,...,47,>=48  ::        
+     ::  are used to provide a chi-square test for cell frequencies.  ::        
+     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::        
+            RESULTS OF SQUEEZE TEST FOR shortpi.o.bin  
+         Table of standardized frequency counts
+     ( (obs-exp)/sqrt(exp) )^2
+        for j taking values <=6,7,8,...,47,>=48:
+     -.1     1.3     -.4     1.4      .8      .6
+    -1.9      .3      .9      .2     -.3     -.3
+    -2.0     1.7      .2      .6     1.1      .0
+      .0      .0     -.6      .5     -.5    -1.0
+     -.9     1.8     -.1    -1.8      .6      .6
+    -1.0    -2.2    -2.0      .9      .9    -1.2
+      .0     -.1      .9     1.5     -.6    -1.0
+     -.1
+           Chi-square with 42 degrees of freedom: 45.151
+              z-score=   .344  p-value= .658461
+______________________________________________________________
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::        
+     ::             The  OVERLAPPING SUMS test                        ::        
+     :: Integers are floated to get a sequence U(1),U(2),... of uni-  ::        
+     :: form [0,1) variables.  Then overlapping sums,                 ::        
+     ::   S(1)=U(1)+...+U(100), S2=U(2)+...+U(101),... are formed.    ::        
+     :: The S's are virtually normal with a certain covariance mat-   ::        
+     :: rix.  A linear transformation of the S's converts them to a   ::        
+     :: sequence of independent standard normals, which are converted ::        
+     :: to uniform variables for a KSTEST. The  p-values from ten     ::        
+     :: KSTESTs are given still another KSTEST.                       ::        
+     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::        
+                Test no.  1      p-value  .106423
+                Test no.  2      p-value  .667286
+                Test no.  3      p-value  .656765
+                Test no.  4      p-value  .890720
+                Test no.  5      p-value  .167917
+                Test no.  6      p-value  .895294
+                Test no.  7      p-value  .642750
+                Test no.  8      p-value  .394053
+                Test no.  9      p-value  .025432
+                Test no. 10      p-value  .206960
+   Results of the OSUM test for shortpi.o.bin  
+        KSTEST on the above 10 p-values:  .153388
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::        
+     ::     This is the RUNS test.  It counts runs up, and runs down, ::        
+     :: in a sequence of uniform [0,1) variables, obtained by float-  ::        
+     :: ing the 32-bit integers in the specified file. This example   ::        
+     :: shows how runs are counted:  .123,.357,.789,.425,.224,.416,.95::        
+     :: contains an up-run of length 3, a down-run of length 2 and an ::        
+     :: up-run of (at least) 2, depending on the next values.  The    ::        
+     :: covariance matrices for the runs-up and runs-down are well    ::        
+     :: known, leading to chisquare tests for quadratic forms in the  ::        
+     :: weak inverses of the covariance matrices.  Runs are counted   ::        
+     :: for sequences of length 10,000.  This is done ten times. Then ::        
+     :: repeated.                                                     ::        
+     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::        
+           The RUNS test for file shortpi.o.bin  
+     Up and down runs in a sample of 10000
+_________________________________________________ 
+                 Run test for shortpi.o.bin  :
+       runs up; ks test for 10 p's: .603509
+     runs down; ks test for 10 p's: .055707
+                 Run test for shortpi.o.bin  :
+       runs up; ks test for 10 p's: .436075
+     runs down; ks test for 10 p's: .579071
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::        
+     :: This is the CRAPS TEST. It plays 200,000 games of craps, finds::        
+     :: the number of wins and the number of throws necessary to end  ::        
+     :: each game.  The number of wins should be (very close to) a    ::        
+     :: normal with mean 200000p and variance 200000p(1-p), with      ::        
+     :: p=244/495.  Throws necessary to complete the game can vary    ::        
+     :: from 1 to infinity, but counts for all>21 are lumped with 21. ::        
+     :: A chi-square test is made on the no.-of-throws cell counts.   ::        
+     :: Each 32-bit integer from the test file provides the value for ::        
+     :: the throw of a die, by floating to [0,1), multiplying by 6    ::        
+     :: and taking 1 plus the integer part of the result.             ::        
+     :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::        
+                Results of craps test for shortpi.o.bin  
+  No. of wins:  Observed Expected
+                                98634    98585.86
+                  98634= No. of wins, z-score=  .215 pvalue= .58524
+   Analysis of Throws-per-Game:
+ Chisq=  22.14 for 20 degrees of freedom, p=  .66680
+               Throws Observed Expected  Chisq     Sum
+                  1    67047    66666.7   2.170    2.170
+                  2    37571    37654.3    .184    2.354
+                  3    26861    26954.7    .326    2.680
+                  4    19295    19313.5    .018    2.698
+                  5    13747    13851.4    .787    3.485
+                  6     9772     9943.5   2.959    6.444
+                  7     7160     7145.0    .031    6.476
+                  8     5032     5139.1   2.231    8.706
+                  9     3684     3699.9    .068    8.774
+                 10     2667     2666.3    .000    8.775
+                 11     1974     1923.3   1.335   10.110
+                 12     1428     1388.7   1.110   11.219
+                 13     1024     1003.7    .410   11.629
+                 14      778      726.1   3.704   15.333
+                 15      568      525.8   3.381   18.714
+                 16      395      381.2    .503   19.217
+                 17      283      276.5    .151   19.368
+                 18      182      200.8   1.765   21.134
+                 19      147      146.0    .007   21.141
+                 20       96      106.2    .982   22.123
+                 21      289      287.1    .012   22.136
+            SUMMARY  FOR shortpi.o.bin  
+                p-value for no. of wins: .585238
+                p-value for throws/game: .666803
+
+$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$
+
+ Results of DIEHARD battery of tests sent to file shortpi.txt    
